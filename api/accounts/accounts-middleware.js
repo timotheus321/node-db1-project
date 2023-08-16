@@ -33,6 +33,11 @@ exports.checkAccountNameUnique = async (req, res, next) => {
     const existing = await db('accounts')
     .where('name', req.body.name.trim())
     .first()
+    if (existing) {
+
+    } else {
+      next({ status: 400, message: 'that name is taken' })
+    }
   } catch (err){
     next(err)
   }
@@ -51,6 +56,4 @@ exports.checkAccountId = async (req, res, next) => {
   } catch (err) {
     next(err)
   }
-  console.log('checkAccountId middleware')
-  next() 
 }
